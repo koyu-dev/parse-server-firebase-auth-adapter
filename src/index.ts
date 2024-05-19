@@ -1,6 +1,5 @@
 import { initializeApp, App } from "firebase-admin/app";
 import { getAuth } from 'firebase-admin/auth';
-import { FirebaseUtil } from './util';
 import { Auth } from "firebase-admin/lib/auth/auth";
 import Parse from "parse/node";
 
@@ -8,11 +7,10 @@ export class FirebaseAuth {
     app: App;
     auth: Auth;
     constructor() {
-        const options = FirebaseUtil.createOptionsFromEnvironment();
-        this.app = initializeApp({
-            credential: require(options.credential),
-            databaseURL: options.databaseURL
-        });
+        if (process.env.GOOGLE_APPLICATION_CREDENTIALS == null) {
+            throw new Error('GOOGLE_APPLICATION_CREDENTIALS is required in the environment variables.');
+        }
+        this.app = initializeApp();
         this.auth = getAuth(this.app);
     }
 

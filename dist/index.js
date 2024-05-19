@@ -15,15 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FirebaseAuth = void 0;
 const app_1 = require("firebase-admin/app");
 const auth_1 = require("firebase-admin/auth");
-const util_1 = require("./util");
 const node_1 = __importDefault(require("parse/node"));
 class FirebaseAuth {
     constructor() {
-        const options = util_1.FirebaseUtil.createOptionsFromEnvironment();
-        this.app = (0, app_1.initializeApp)({
-            credential: require(options.credential),
-            databaseURL: options.databaseURL
-        });
+        if (process.env.GOOGLE_APPLICATION_CREDENTIALS == null) {
+            throw new Error('GOOGLE_APPLICATION_CREDENTIALS is required in the environment variables.');
+        }
+        this.app = (0, app_1.initializeApp)();
         this.auth = (0, auth_1.getAuth)(this.app);
     }
     validateAuthData(authData, options) {
