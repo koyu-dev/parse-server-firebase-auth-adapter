@@ -21,7 +21,7 @@ class FirebaseAuth {
         if (process.env.GOOGLE_APPLICATION_CREDENTIALS == null) {
             throw new Error('GOOGLE_APPLICATION_CREDENTIALS is required in the environment variables.');
         }
-        this.app = (0, app_1.initializeApp)();
+        this.app = (0, app_1.getApps)().length == 0 ? (0, app_1.initializeApp)() : (0, app_1.getApp)();
         this.auth = (0, auth_1.getAuth)(this.app);
     }
     validateAuthData(authData, options) {

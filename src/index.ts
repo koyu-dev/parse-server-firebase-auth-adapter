@@ -1,4 +1,4 @@
-import { initializeApp, App } from "firebase-admin/app";
+import { initializeApp, App, getApps, getApp } from "firebase-admin/app";
 import { getAuth } from 'firebase-admin/auth';
 import { Auth } from "firebase-admin/lib/auth/auth";
 import Parse from "parse/node";
@@ -10,7 +10,7 @@ export class FirebaseAuth {
         if (process.env.GOOGLE_APPLICATION_CREDENTIALS == null) {
             throw new Error('GOOGLE_APPLICATION_CREDENTIALS is required in the environment variables.');
         }
-        this.app = initializeApp();
+        this.app = getApps().length == 0 ? initializeApp() : getApp();
         this.auth = getAuth(this.app);
     }
 
