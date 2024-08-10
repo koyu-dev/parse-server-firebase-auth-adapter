@@ -17,13 +17,13 @@ export class FirebaseAuth {
     async validateAuthData(authData: {id: string, access_token: string}, options: any) {
         try {
             const decodedToken = await this.auth.verifyIdToken(authData.access_token)
-            if (decodedToken && decodedToken.uid == authData.id) {
+            if (decodedToken && decodedToken.uid === authData.id) {
                 return;                    
             } else {
                 throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth not found for this user.');
             }
         } catch (error) {
-            throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth is invalid for this user.');
+            throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, `Firebase auth is invalid for this user. ${(error as Error).message}`);
         }
     }
 

@@ -28,7 +28,7 @@ class FirebaseAuth {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const decodedToken = yield this.auth.verifyIdToken(authData.access_token);
-                if (decodedToken && decodedToken.uid == authData.id) {
+                if (decodedToken && decodedToken.uid === authData.id) {
                     return;
                 }
                 else {
@@ -36,7 +36,7 @@ class FirebaseAuth {
                 }
             }
             catch (error) {
-                throw new node_1.default.Error(node_1.default.Error.OBJECT_NOT_FOUND, 'Firebase auth is invalid for this user.');
+                throw new node_1.default.Error(node_1.default.Error.OBJECT_NOT_FOUND, `Firebase auth is invalid for this user. ${error.message}`);
             }
         });
     }
