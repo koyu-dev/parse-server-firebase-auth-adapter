@@ -16,7 +16,8 @@ export class FirebaseAuth {
 
     async validateAuthData(authData: {id: string, access_token: string}, options: any) {
         try {
-            const decodedToken = await this.auth.verifyIdToken(authData.access_token)
+            const auth = new FirebaseAuth();
+            const decodedToken = await auth.auth.verifyIdToken(authData.access_token)
             if (decodedToken && decodedToken.uid === authData.id) {
                 return;                    
             } else {

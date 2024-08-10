@@ -27,7 +27,8 @@ class FirebaseAuth {
     validateAuthData(authData, options) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const decodedToken = yield this.auth.verifyIdToken(authData.access_token);
+                const auth = new FirebaseAuth();
+                const decodedToken = yield auth.auth.verifyIdToken(authData.access_token);
                 if (decodedToken && decodedToken.uid === authData.id) {
                     return;
                 }
